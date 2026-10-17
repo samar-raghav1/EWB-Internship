@@ -1,0 +1,23 @@
+# Bastion Host
+Host bastion
+    HostName 13.206.187.71        # Bastion public IP
+    User ubuntu                   # Default user for Ubuntu AMI
+    IdentityFile ~/Downloads/bastion-ec2.pem
+    IdentitiesOnly yes
+
+# App A (Private EC2 in VPC A)
+Host appA
+    HostName 10.10.2.573           # App A private IP
+    User ubuntu
+    IdentityFile ~/Downloads/App_A.pem
+    IdentitiesOnly yes
+    ProxyJump bastion             # Jump through bastion
+
+# App B (Private EC2 in VPC B)
+Host appB
+    HostName 10.20.1.113           # App B private IP
+    User ubuntu
+    IdentityFile ~/Downloads/APP_B.pem
+    IdentitiesOnly yes
+    ProxyJump bastion
+
